@@ -1,23 +1,21 @@
-package Test;
+package Model;
 
-import Model.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 
 class PointTest {
 
     static Point point;
-    static Point child;
-    static Point parent;
+    static Point point1;
+    static Point point2;
 
     @BeforeAll
     static void setPoint(){
         point = new Point(2.000, 1976091.0, 3974537.2, 4564998.2, 1.671, 4.251, 4.931);
-        child = new Point("3.000  1976106.2  3974538.9  4565022.1  3.707  6.415  7.780");
-        parent = new Point("4.000  1976141.1  3974530.0  4565022.4  4.244  9.116  10.318");
+        point1 = new Point("3.000  1976106.2  3974538.9  4565022.1  3.707  6.415  7.780");
+        point2 = new Point("4.000  1976141.1  3974530.0  4565022.4  4.244  9.116  10.318");
     }
     @Test
     void getTime() {
@@ -138,67 +136,28 @@ class PointTest {
         Assertions.assertNull(point.getvZ());
     }
 
-    @Test
-    void getChild() {
-        Assertions.assertNull(point.getChild());
-        Assertions.assertNull(parent.getChild());
-        Assertions.assertNull(child.getChild());
-    }
 
-    @Test
-    void getParent() {
-        Assertions.assertNull(point.getParent());
-        Assertions.assertNull(parent.getParent());
-        Assertions.assertNull(child.getParent());
-    }
 
-    @Test
-    void setParent() {
-        child.setParent(point);
-        Assertions.assertEquals(point, child.getParent());
-        child.setParent(parent);
-        Assertions.assertEquals(parent, child.getParent());
-        child.setParent(child);
-        Assertions.assertEquals(child, child.getParent());
-        child.setParent(null);
-        Assertions.assertNull(child.getParent());
-    }
-    @Test
-    void setChild() {
-        parent.setChild(child);
-        Assertions.assertEquals(child, parent.getChild());
-        Assertions.assertEquals(parent, child.getParent());
-        child.setChild(point);
-        Assertions.assertEquals(point, child.getChild());
-        Assertions.assertEquals(child, point.getParent());
-        child.setChild(null);
-        Assertions.assertNull(child.getChild());
-    }
 
     @Test
     void testToString() {
-        point.setChild(child);
-        point.setParent(parent);
         Assertions.assertEquals(point.toString(),
-                "Model.Point{" +
                 "time=" + point.getTime() +
-                ", x=" + point.getX() +
-                ", y=" + point.getY() +
-                ", z=" + point.getZ() +
-                ", vX=" + point.getvX() +
-                ", vY=" + point.getvY() +
-                ", vZ=" + point.getvZ() +
-                ", childFlag=" + (point.getChild()!=null) +
-                ", parentFlag=" + (point.getParent()!=null) +
-                '}');
+                        ", x=" + point.getX() +
+                        ", y=" + point.getY() +
+                        ", z=" + point.getZ() +
+                        ", vX=" + point.getvX() +
+                        ", vY=" + point.getvY() +
+                        ", vZ=" + point.getvZ() +
+                        '}');
     }
 
     @Test
     void testEquals() {
-        child = point;
+        point1 = point;
         Assertions.assertEquals(point, point);
-        Assertions.assertEquals(point, child);
-        Assertions.assertNotEquals(point, parent);
+        Assertions.assertEquals(point, point1);
+        Assertions.assertNotEquals(point, point2);
         Assertions.assertNotEquals(point, null);
     }
 }

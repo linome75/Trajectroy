@@ -4,8 +4,6 @@ import java.util.Objects;
 
 public class Point {
     private Double time, x, y, z, vX, vY, vZ;
-    protected Point child = null;
-    protected Point parent = null;
 
     public Point(Double time, Double x, Double y, Double z, Double vX, Double vY, Double vZ) {
         this.time = time;
@@ -84,35 +82,15 @@ public class Point {
         this.vZ = vZ;
     }
 
-    public Point getChild() {
-        return child;
-    }
-
-    public void setChild(Point child) {
-        if (child != null) child.setParent(this);
-        this.child = child;
-    }
-
-    public Point getParent() {
-        return parent;
-    }
-
-    public void setParent(Point parent) {
-        this.parent = parent;
-    }
-
     @Override
     public String toString() {
-        return "Model.Point{" +
-                "time=" + time +
+        return "time=" + time +
                 ", x=" + x +
                 ", y=" + y +
                 ", z=" + z +
                 ", vX=" + vX +
                 ", vY=" + vY +
                 ", vZ=" + vZ +
-                ", childFlag=" + (child!=null) +
-                ", parentFlag=" + (parent!=null) +
                 '}';
     }
 
@@ -120,6 +98,6 @@ public class Point {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Point point)) return false;
-        return Objects.equals(getTime(), point.getTime()) && Objects.equals(getX(), point.getX()) && Objects.equals(getY(), point.getY()) && Objects.equals(getZ(), point.getZ()) && Objects.equals(getvX(), point.getvX()) && Objects.equals(getvY(), point.getvY()) && Objects.equals(getvZ(), point.getvZ()) && Objects.equals(getChild(), point.getChild()) && Objects.equals(getParent(), point.getParent());
+        return Objects.equals(getTime(), point.getTime()) && Objects.equals(getX(), point.getX()) && Objects.equals(getY(), point.getY()) && Objects.equals(getZ(), point.getZ()) && Objects.equals(getvX(), point.getvX()) && Objects.equals(getvY(), point.getvY()) && Objects.equals(getvZ(), point.getvZ());
     }
 }
