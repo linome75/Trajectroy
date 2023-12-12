@@ -16,7 +16,7 @@ public class Point {
     }
 
     public Point(String point) {
-        String [] splitInput = point.split(" {2}");
+        String[] splitInput = point.split(" {2}");
         time = Double.valueOf(splitInput[0]);
         x = Double.valueOf(splitInput[1]);
         y = Double.valueOf(splitInput[2]);
@@ -84,7 +84,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "time=" + time +
+        return "Point " + "{" + "time=" + time +
                 ", x=" + x +
                 ", y=" + y +
                 ", z=" + z +

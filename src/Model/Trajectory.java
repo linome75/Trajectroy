@@ -7,9 +7,11 @@ public class Trajectory {
     private ArrayList<Point> points = new ArrayList<>();
 
     public Trajectory(ArrayList<Point> points) {
-        this.points = points;
+        this.points = new ArrayList<>(points);
     }
 
+    public Trajectory() {
+    }
     public ArrayList<Point> getPoints() {
         return points;
     }
@@ -34,12 +36,12 @@ public class Trajectory {
         this.points.addAll(array);
     }
 
-    public Point removePoint(int index) {
-        return this.points.remove(index);
+    public void removePoint(int index) {
+        this.points.remove(index);
     }
 
-    public boolean removePoint(Point point) {
-        return this.points.remove(point);
+    public void removePoint(Point point) {
+        this.points.remove(point);
     }
 
     public void clear() {
@@ -55,14 +57,15 @@ public class Trajectory {
     }
 
     public boolean contains(Point point) {
-        return this.contains(point);
+        return points.contains(point);
     }
 
 
     @Override
     public String toString() {
-        return "Trajectory{" +
-                "points=" + points +
-                '}';
+        StringBuilder out = new StringBuilder("Trajectory\n");
+        out.append("Size: ").append(this.size()).append("\nPoints:\n");
+        points.forEach((point -> out.append(point.toString()).append("\n")));
+        return out.toString();
     }
 }
