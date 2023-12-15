@@ -1,7 +1,11 @@
 package Model;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/*Класс точки, поля соответствуют представленным в файле.
+Методы: конструкторы, геттеры, сеттеры, equals, toString*/
 public class Point {
     private Double time, x, y, z, vX, vY, vZ;
 
@@ -16,6 +20,17 @@ public class Point {
     }
 
     public Point(String point) {
+
+        try {
+            Pattern pattern = Pattern.compile("(\\d+\\.\\d+\\s+){6}\\d+\\.\\d+", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(point);
+            if (!matcher.matches()){
+                throw new Exception("String \"" + point + "\" doesn't match pattern");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         String[] splitInput = point.split(" {2}");
         time = Double.valueOf(splitInput[0]);
         x = Double.valueOf(splitInput[1]);

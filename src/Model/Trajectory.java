@@ -1,10 +1,21 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+
+/*
+Класс траектории, построен на ArrayList, также имеет поле файла.
+Методы: конструкторы, геттеры, сеттеры, addPoint, removePoint, clear,  contains, size, toStrong.
+*/
+
 
 public class Trajectory {
 
     private ArrayList<Point> points = new ArrayList<>();
+    private File file = new File("");
 
     public Trajectory(ArrayList<Point> points) {
         this.points = new ArrayList<>(points);
@@ -12,8 +23,34 @@ public class Trajectory {
 
     public Trajectory() {
     }
+
+    public Trajectory(String fileName) {
+        this.points = new ArrayList<>();
+        try {
+            file = new File(fileName);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                this.addPoint(new Point(line));
+            }
+            bufferedReader.close();
+        } catch (IOException ignored) {
+
+        }
+
+    }
+
     public ArrayList<Point> getPoints() {
         return points;
+    }
+
+    public String getFileName(){
+        return file.getName();
+    }
+
+    public File getFile(){
+        return file;
     }
 
     public void setPoints(ArrayList<Point> points) {
@@ -35,6 +72,7 @@ public class Trajectory {
     public void addAll(ArrayList<Point> array) {
         this.points.addAll(array);
     }
+
 
     public void removePoint(int index) {
         this.points.remove(index);
