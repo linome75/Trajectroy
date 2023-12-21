@@ -7,7 +7,13 @@ import java.util.regex.Pattern;
 /*Класс точки, поля соответствуют представленным в файле.
 Методы: конструкторы, геттеры, сеттеры, equals, toString*/
 public class Point {
-    private Double time, x, y, z, vX, vY, vZ;
+    private double time;
+    private double x;
+    private double y;
+    private double z;
+    private double vX;
+    private double vY;
+    private double vZ;
 
     public Point(Double time, Double x, Double y, Double z, Double vX, Double vY, Double vZ) {
         this.time = time;
@@ -25,20 +31,20 @@ public class Point {
             Pattern pattern = Pattern.compile("(\\d+\\.\\d+\\s+){6}\\d+\\.\\d+", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(point);
             if (!matcher.matches()){
-                throw new Exception("String \"" + point + "\" doesn't match pattern");
+                throw new IllegalArgumentException("String \"" + point + "\" doesn't match pattern");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
 
         String[] splitInput = point.split(" {2}");
-        time = Double.valueOf(splitInput[0]);
-        x = Double.valueOf(splitInput[1]);
-        y = Double.valueOf(splitInput[2]);
-        z = Double.valueOf(splitInput[3]);
-        vX = Double.valueOf(splitInput[4]);
-        vY = Double.valueOf(splitInput[5]);
-        vZ = Double.valueOf(splitInput[6]);
+        time = Double.parseDouble(splitInput[0]);
+        x = Double.parseDouble(splitInput[1]);
+        y = Double.parseDouble(splitInput[2]);
+        z = Double.parseDouble(splitInput[3]);
+        vX = Double.parseDouble(splitInput[4]);
+        vY = Double.parseDouble(splitInput[5]);
+        vZ = Double.parseDouble(splitInput[6]);
     }
 
     public Double getTime() {
@@ -110,9 +116,16 @@ public class Point {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Point point)) return false;
         return Objects.equals(getTime(), point.getTime()) && Objects.equals(getX(), point.getX()) && Objects.equals(getY(), point.getY()) && Objects.equals(getZ(), point.getZ()) && Objects.equals(getvX(), point.getvX()) && Objects.equals(getvY(), point.getvY()) && Objects.equals(getvZ(), point.getvZ());
     }
+
+
 }

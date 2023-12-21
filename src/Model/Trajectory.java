@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
 Класс траектории, построен на ArrayList, также имеет поле файла.
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 public class Trajectory {
 
     private ArrayList<Point> points = new ArrayList<>();
-    private File file = new File("");
+
+    private String fileName;
 
     public Trajectory(ArrayList<Point> points) {
         this.points = new ArrayList<>(points);
@@ -24,10 +26,16 @@ public class Trajectory {
     public Trajectory() {
     }
 
+    public Trajectory(Trajectory trajectory) {
+        this.points = new ArrayList<>(trajectory.getPoints());
+        this.fileName = trajectory.getFileName();
+    }
+
     public Trajectory(String fileName) {
+        this.fileName = fileName;
         this.points = new ArrayList<>();
         try {
-            file = new File(fileName);
+            File file = new File(fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
@@ -46,11 +54,11 @@ public class Trajectory {
     }
 
     public String getFileName(){
-        return file.getName();
+        return fileName;
     }
 
     public File getFile(){
-        return file;
+        return new File(fileName);
     }
 
     public void setPoints(ArrayList<Point> points) {
@@ -105,5 +113,17 @@ public class Trajectory {
         out.append("Size: ").append(this.size()).append("\nPoints:\n");
         points.forEach((point -> out.append(point.toString()).append("\n")));
         return out.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trajectory that)) return false;
+        return Objects.equals(getPoints(), that.getPoints());// && Objects.equals(getFileName(), that.getFileName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPoints(), getFileName());
     }
 }
